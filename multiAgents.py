@@ -80,7 +80,10 @@ class ReflexAgent(Agent):
         # Having no more food will be very perfect (-1000)
         closestFood = min([manhattanDistance(newPos, food) for food in newFood]) if newFood else -1000
 
-        return (-4)*closestFood + (-100)*len(newFood) + (4)*closestGhost
+        # How less food better
+        food_size = len(newFood)
+
+        return (-4)*closestFood + (-100)*food_size + (4)*closestGhost
 
 
 
