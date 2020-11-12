@@ -140,7 +140,59 @@ class MinimaxAgent(MultiAgentSearchAgent):
             Returns the total number of agents in the game
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+        def minim(gameState, depth, agentcounter):
+            minimum = ["", float("inf")]
+            ghostActions = gameState.getLegalActions(agentcounter)
+
+            if ghostActions == 0:
+                return self.evaluationFunction(gameState)
+            else:
+              for action in ghostActions:
+                  currentState = gameState.generateSuccessor(agentcounter, action)
+                  current = minimax(currentState, depth, agentcounter + 1)
+                  if type(current) is not list:
+                      newValue = current
+                  else:
+                      newValue = current[1]
+                  if newValue < minimum[1]:
+                      minimum = [action, newValue]
+              return minimum
+
+        def maxim(gameState, depth, agentcounter):
+            maximum = ["", -float("inf")]
+            ghostActions = gameState.getLegalActions(agentcounter)
+
+            if ghostActions == 0:
+                return self.evaluationFunction(gameState)
+            else:
+              for action in ghostActions:
+                  currentState = gameState.generateSuccessor(agentcounter, action)
+                  current = minimax(currentState, depth, agentcounter + 1)
+                  if type(current) is not list:
+                      newValue = current
+                  else:
+                      newValue = current[1]
+                  if newValue > maximum[1]:
+                      maximum = [action, newValue]
+              return maximum
+
+
+        def minimax(gameState, depth, agentcounter):
+            if agentcounter >= gameState.getNumAgents():
+                depth += 1
+                agentcounter = 0
+
+            if (depth == self.depth or gameState.isWin() or gameState.isLose()):
+                return self.evaluationFunction(gameState)
+            else:
+              if (agentcounter == 0):
+                return maxim(gameState, depth, agentcounter)
+              else:
+                return minim(gameState, depth, agentcounter)
+
+        actionsList = minimax(gameState, 0, 0)
+        return actionsList[0]
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
     """
