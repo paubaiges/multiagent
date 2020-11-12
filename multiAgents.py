@@ -83,7 +83,7 @@ class ReflexAgent(Agent):
         # How less food better
         food_size = len(newFood)
 
-        return (-4)*closestFood + (-100)*food_size + (4)*closestGhost
+        return (-4)*closestFood + (-80)*food_size + (4)*closestGhost
 
 
 
