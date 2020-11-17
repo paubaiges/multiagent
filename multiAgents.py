@@ -190,9 +190,6 @@ class MinimaxAgent(MultiAgentSearchAgent):
         actionsList = minimax(gameState, 0, 0)
         return actionsList[0]
 
-
-        
-
 class AlphaBetaAgent(MultiAgentSearchAgent):
     """
       Your minimax agent with alpha-beta pruning (question 3)
