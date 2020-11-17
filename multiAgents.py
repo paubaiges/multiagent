@@ -297,7 +297,18 @@ def betterEvaluationFunction(currentGameState):
       DESCRIPTION: <write something here so we know what you did>
     """
     "*** YOUR CODE HERE ***"
-    
+    pacman_position = list(currentGameState.getPacmanPosition())
+    food_position = currentGameState.getFood().asList()
+    food_list = []
+
+    for food in food_position:
+        distance = manhattanDistance(pacman_position, food)
+        food_list.append(-1 * distance)
+
+    if not food_list:
+        food_list.append(0)
+
+    return currentGameState.getScore() + max(food_list)
 
 # Abbreviation
 better = betterEvaluationFunction
